@@ -8,6 +8,7 @@ import Header from "@/common_component/Header";
 import { QueryProvider } from "@/modules/globals/QueryProvider";
 import BlockChainWrapper from "@/modules/globals/BlockChainWrapper";
 import { Toaster } from "sonner";
+import { Suspense } from "react";
 
 const interSans = Inter({
   variable: "--font-inter-sans",
@@ -22,7 +23,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark">
-      <body className={`${interSans.variable} antialiased `}>
+      <body className={`${interSans.variable} antialiased min-h-screen`}>
         <QueryProvider>
           <BlockChainWrapper>
             <div className="mx-2 md:mx-12 ">

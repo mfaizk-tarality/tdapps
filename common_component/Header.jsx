@@ -1,6 +1,7 @@
 "use client";
 import { useAppKit } from "@reown/appkit/react";
 import { IconBrandSlack } from "@tabler/icons-react";
+import Link from "next/link";
 import React, { useMemo } from "react";
 import { useAccount } from "wagmi";
 
@@ -8,6 +9,19 @@ const navItems = [
   {
     label: "Home",
     href: "/",
+  },
+
+  {
+    label: "Faucet",
+    href: "/faucet",
+  },
+  {
+    label: "Token Creator",
+    href: "/token-creator",
+  },
+  {
+    label: "MultiSender",
+    href: "/multi-sender",
   },
   //   {
   //     label: "Faucet",
@@ -27,18 +41,6 @@ const navItems = [
   //       },
   //     ],
   //   },
-  {
-    label: "Faucet",
-    href: "/faucet",
-  },
-  {
-    label: "Token Creator",
-    href: "/token-creator",
-  },
-  {
-    label: "MultiSender",
-    href: "/multi-sender",
-  },
 ];
 
 const Header = () => {
@@ -72,7 +74,7 @@ const Header = () => {
             // Mobile dropdowns: DaisyUI's mobile dropdown doesn't have a direct "hover" class
             // This will still be click-to-open for mobile, which is often preferred.
             <>
-              <a>{item.label}</a>
+              <Link>{item.label}</Link>
               <ul className="p-2">
                 {item.children.map((child) => renderNavItem(child, true))}
               </ul>
@@ -81,11 +83,9 @@ const Header = () => {
             // Desktop dropdowns: Use <details> with `dropdown` and `dropdown-hover` classes
             // For nested desktop submenus, DaisyUI's <details> + `dropdown-hover` also works
             <details className="dropdown dropdown-hover">
-              {" "}
               {/* Add dropdown-hover here */}
               <summary>{item.label}</summary>
               <ul className="p-2 dropdown-content z-[1] bg-background rounded-box w-52 ">
-                {" "}
                 {/* Ensure dropdown-content has necessary classes */}
                 {item.children.map((child) => renderNavItem(child))}
               </ul>
@@ -97,7 +97,7 @@ const Header = () => {
       // It's a regular link
       return (
         <li key={item.label}>
-          <a href={item.href}>{item.label}</a>
+          <Link href={item.href}>{item.label}</Link>
         </li>
       );
     }
@@ -131,7 +131,7 @@ const Header = () => {
             {navItems.map((item) => renderNavItem(item, true))}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl"></a>
+        {/* <Link className="btn btn-ghost text-xl"></Link> */}
       </div>
 
       {/* Desktop Navigation */}
