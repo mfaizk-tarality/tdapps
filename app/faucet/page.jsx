@@ -7,10 +7,11 @@ import { amountToSend, OWNER_ACCOUNT_ADDRESS } from "@/modules/faucet/config";
 import { IconCopy, IconWorld } from "@tabler/icons-react";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
-import { useAccount, useBalance } from "wagmi";
+import { useAccount, useBalance, useSwitchChain } from "wagmi";
 import { toast } from "sonner";
 import { useAppKit } from "@reown/appkit/react";
 import CopyButton from "@/common_component/CopyButton";
+import { TANConfig } from "@/modules/globals/BlockChainWrapper";
 const breadCrumb = [
   {
     text: "Home",
@@ -30,6 +31,7 @@ const Faucet = () => {
   const { isConnected } = useAccount();
   const { address } = useAccount();
   const provider = useEthersProvider();
+  const { switchChainAsync } = useSwitchChain();
 
   const { mutateAsync: claimFaucetMutate, isPending: claimFaucetPending } =
     useMutation({
@@ -115,7 +117,20 @@ const Faucet = () => {
             </div>
           </div>
           <div className="mt-10 w-full flex justify-evenly items-center flex-col lg:flex-row gap-4 lg:gap-0">
-            <CustomButton className="rounded-md w-52">
+            <CustomButton
+              className="rounded-md w-52"
+              clickHandler={() => {
+                switchChainAsync(
+                  { chainId: TANConfig.chainId },
+
+                  {
+                    onError: (err) => {
+                      toast.error(err.message);
+                    },
+                  }
+                );
+              }}
+            >
               <img src="/assets/misc/metamask.svg" alt="" />
               <p>Add TAN Network</p>
             </CustomButton>

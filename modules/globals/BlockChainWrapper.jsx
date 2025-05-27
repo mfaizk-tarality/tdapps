@@ -9,6 +9,22 @@ import {
   createStorage,
   WagmiProvider,
 } from "wagmi";
+
+export const TANConfig = {
+  rpc: "https://tan-devnetrpc1.tan.live/",
+  explorerName: "TAN Ledger",
+  explorerUrl: "https://testnet.tanscan.com",
+  iconUrl: "/assets/logo/onlyLogo.svg",
+  chainId: 4442,
+  chainName: "TAN Devnet",
+  nativeCurrency: {
+    decimals: 18,
+    name: "Tarality Advance network",
+    symbol: "TAN",
+  },
+  multicall3Address: "0xb821099Fb8d4DbD0e7e7Ff64A7DE3BE99503a2af", //latest
+};
+
 export const appConfigurations = [
   {
     rpc: "https://tan-devnetrpc1.tan.live/",
