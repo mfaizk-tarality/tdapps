@@ -7,6 +7,7 @@ import Footer from "@/common_component/Footer";
 import Header from "@/common_component/Header";
 import { QueryProvider } from "@/modules/globals/QueryProvider";
 import BlockChainWrapper from "@/modules/globals/BlockChainWrapper";
+import { Toaster } from "sonner";
 
 const interSans = Inter({
   variable: "--font-inter-sans",
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
         <QueryProvider>
           <BlockChainWrapper>
             <div className="mx-2 md:mx-12 ">
+              <Toaster theme="dark" />
               <Header />
               {children}
               <Footer />

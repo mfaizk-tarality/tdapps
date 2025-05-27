@@ -1,11 +1,16 @@
 "use client";
 import BreadCrumb from "@/common_component/BreadCrumb";
 import CustomButton from "@/common_component/CustomButton";
-import { OWNER_ACCOUNT_ADDRESS } from "@/modules/faucet/config";
+import { useEthersProvider } from "@/hooks/useEthersProvider";
+import { claimFaucet, sendFunds } from "@/modules/faucet";
+import { amountToSend, OWNER_ACCOUNT_ADDRESS } from "@/modules/faucet/config";
 import { IconCopy, IconWorld } from "@tabler/icons-react";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
-import { useBalance } from "wagmi";
+import { useAccount, useBalance } from "wagmi";
+import { toast } from "sonner";
+import { useAppKit } from "@reown/appkit/react";
+import CopyButton from "@/common_component/CopyButton";
 const breadCrumb = [
   {
     text: "Home",
@@ -21,26 +26,30 @@ const Faucet = () => {
   const { data: ownerBalance } = useBalance({
     address: OWNER_ACCOUNT_ADDRESS,
   });
+  const { open } = useAppKit();
+  const { isConnected } = useAccount();
+  const { address } = useAccount();
+  const provider = useEthersProvider();
 
-  const { mutateAsync: claimFaucetMutate } = useMutation({
-    mutationFn: async () => {
-      return claimFaucet(formValue.toAddress);
-    },
-    onSuccess: (data) => {
-      console.log(data, "success");
-      setIsLoading(true);
-      if (data?.responseCode == 200) {
-        sendFunds();
-      } else {
-        toast.error(data?.response?.data?.responseMessage);
-      }
-      setIsLoading(false);
-    },
-    onError: (error) => {
-      console.log(error, "errorinClaiming");
-      setIsLoading(false);
-    },
-  });
+  const { mutateAsync: claimFaucetMutate, isPending: claimFaucetPending } =
+    useMutation({
+      mutationFn: async () => {
+        return claimFaucet(address);
+      },
+      onSuccess: (data) => {
+        if (data?.responseCode == 200) {
+          sendFunds({
+            provider,
+            address,
+          });
+        } else {
+          toast.error(data?.response?.data?.responseMessage);
+        }
+      },
+      onError: (error) => {
+        console.log(error, "errorinClaiming");
+      },
+    });
 
   return (
     <div>
@@ -48,7 +57,7 @@ const Faucet = () => {
         <BreadCrumb routes={breadCrumb} />
       </div>
       <div className="grid grid-cols-12">
-        <div className="col-span-12 sm:col-span-12 lg:col-span-5 lg:col-start-4">
+        <div className="col-span-12 sm:col-span-12 lg:col-span-6 lg:col-start-4 xl:col-span-4 xl:col-start-5">
           <h2 className="text-2xl font-semibold">Faucet</h2>
           <p className="text-description">
             Easily Request Free Testnet Tokens Using the Faucet—Jumpstart Your
@@ -72,9 +81,22 @@ const Faucet = () => {
               <input
                 type="text"
                 className="border border-stroke w-full px-4 py-3 rounded-xl outline-0 text-center"
-                defaultValue={"0x9217a95aE45D9b8b51d0743D7CdcB953e3745Ab4"}
+                defaultValue={
+                  address || "Address will be displayed after wallet connect."
+                }
               />
-              <CustomButton>Claim 10 TAN</CustomButton>
+              <CustomButton
+                clickHandler={() => {
+                  if (!isConnected) {
+                    open({ view: "Connect" });
+                    return;
+                  }
+                  claimFaucetMutate();
+                }}
+                isLoading={claimFaucetPending}
+              >
+                {isConnected ? ` Claim ${amountToSend} TAN` : "Connect Wallet"}
+              </CustomButton>
               <p className="text-sm text-description">
                 Once you are done with the testing, feel free to send the
                 remaining coins to the following Faucet address.
@@ -83,10 +105,11 @@ const Faucet = () => {
                 <input
                   type="text"
                   className="border border-stroke w-full px-4 py-3 rounded-xl outline-0 "
-                  defaultValue={"0x9217a95aE45D9b8b51d0743D7CdcB953e3745Ab4"}
+                  defaultValue={"0xE83B6e2294dfb00c3cD17B74D0836c433A329AE9"}
                 />
                 <div className="absolute top-3 right-3 bg-background">
-                  <IconCopy className="" />
+                  {/* <IconCopy className="" /> */}
+                  <CopyButton text={"HULAA"} />
                 </div>
               </label>
             </div>
