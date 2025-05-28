@@ -72,12 +72,12 @@ const cardData = [
     label: "Minting & Burning Token",
     desc: "Control Circulating Supply by Minting Additional Tokens or Burning Unused Ones",
     icon: IconBoomFilled,
-    href: "#",
+    href: "/token-creator/mint-burn",
   },
   {
     label: "Standard Reflaction Token",
     desc: "Easily Deploy Your Own Standard Reflection Token on the Blockchain",
     icon: IconRouteSquare2,
-    href: "#",
+    href: "/token-creator/standard-reflection",
   },
 ];
