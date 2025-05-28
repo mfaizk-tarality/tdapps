@@ -25,7 +25,7 @@ const navItems = [
   },
   {
     label: "MultiSender",
-    href: "/multi-sender",
+    href: "/multisender",
   },
   //   {
   //     label: "Faucet",
