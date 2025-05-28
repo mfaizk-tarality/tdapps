@@ -7,8 +7,9 @@ import { maskValue, sortAddress, useAddToken } from "@/utils";
 import { formatNice } from "coin-format";
 import { useAccount, useConfig } from "wagmi";
 import moment from "moment";
-import { IconCheck, IconX } from "@tabler/icons-react";
+import { IconCheck, IconSearch, IconX } from "@tabler/icons-react";
 import LoadingScreen from "@/common_component/LoadingScreen";
+import { useState } from "react";
 const breadCrumb = [
   {
     text: "Home",
@@ -26,6 +27,7 @@ const breadCrumb = [
 
 const MyTokens = () => {
   const { address, isConnected } = useAccount();
+  const [search, setSearch] = useState("");
   const { data: tokenData, isLoading: tokenDataLoading } =
     useCreatedToken(address);
   const { addToken } = useAddToken();
@@ -40,7 +42,30 @@ const MyTokens = () => {
         return "Minting";
     }
   };
-  console.log(tokenData, "asdasdasdasd");
+
+  const filterToken = (item) => {
+    if (search) {
+      if (String(item?.user_token_Address).includes(search)) {
+        return true;
+      }
+      if (
+        String(item?.token_name)
+          .toLowerCase()
+          .includes(String(search).toLowerCase())
+      ) {
+        return true;
+      }
+      if (
+        String(item?.token_symbol)
+          .toLowerCase()
+          .includes(String(search).toLowerCase())
+      ) {
+        return true;
+      }
+      return false;
+    }
+    return true;
+  };
 
   return (
     <div className="">
@@ -50,14 +75,28 @@ const MyTokens = () => {
 
       <div className="grid grid-cols-12">
         <div className="md:col-start-2 md:col-span-10 col-span-12 ">
-          <div className="col-span-12 my-10">
-            <PageTitle
-              title={"My Tokens"}
-              subtitle={
-                "Easily Deploy Your Own Standard Token on the Blockchain"
-              }
-            />
+          <div className="col-span-12 grid-cols-12 grid  my-10">
+            <div className="col-span-12 md:col-span-6">
+              <PageTitle
+                title={"My Tokens"}
+                subtitle={
+                  "Easily Deploy Your Own Standard Token on the Blockchain"
+                }
+              />
+            </div>
+            <div className="col-span-12 md:col-span-6 flex justify-end items-center">
+              <label className="input bg-background border rounded-4xl ">
+                <IconSearch />
+                <input
+                  type="search"
+                  className="grow outline-0 border-0"
+                  placeholder="Search Tokens"
+                  onChange={(e) => setSearch(e?.target?.value)}
+                />
+              </label>
+            </div>
           </div>
+
           <div className="max-h-[700px] overflow-auto w-full">
             {tokenDataLoading && (
               <LoadingScreen
@@ -66,7 +105,7 @@ const MyTokens = () => {
               />
             )}
             {!tokenDataLoading && (
-              <table className="table table-md table-pin-rows table-pin-cols flex-1 min-w-[1200px]  ">
+              <table className="table table-md table-pin-rows table-pin-cols flex-1 min-w-[1200px]">
                 <thead>
                   <tr className="bg-stroke">
                     <td>Token Address</td>
@@ -81,7 +120,7 @@ const MyTokens = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {tokenData?.map((item, idx) => {
+                  {tokenData?.filter(filterToken)?.map((item, idx) => {
                     return (
                       <tr key={idx}>
                         <td>

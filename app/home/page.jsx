@@ -1,9 +1,13 @@
+"use client";
 import CustomButton from "@/common_component/CustomButton";
 import CustomDivider from "@/common_component/CustomDivider";
 import { IconComponents, IconSearch, IconTaxPound } from "@tabler/icons-react";
-import React from "react";
+import React, { useMemo, useState } from "react";
 
 const Home = () => {
+  const [search, setSearch] = useState("");
+  const dappData = useDappData(search);
+
   return (
     <div className="grid grid-cols-12 w-full m-2 md:m-0 ">
       <div className="col-span-12 md:col-span-6 flex flex-col items-start justify-center gap-6 min-h-96">
@@ -17,7 +21,7 @@ const Home = () => {
         </p>
         <CustomButton>View More</CustomButton>
       </div>
-      <div className="col-span-12 md:col-span-6 flex justify-center items-center min-h-96">
+      <div className="col-span-12 md:col-span-6 flex justify-center md:justify-end items-center min-h-96">
         <img src="/assets/brand/coin.svg" alt="" className="md:h-80" />
       </div>
       <div className="col-span-12 hidden md:flex justify-center items-center ">
@@ -37,6 +41,7 @@ const Home = () => {
               type="search"
               className="grow outline-0 border-0"
               placeholder="Search Apps"
+              onChange={(e) => setSearch(e?.target?.value)}
             />
           </label>
         </div>
@@ -64,53 +69,66 @@ const Home = () => {
 
 export default Home;
 
-const dappData = [
-  {
-    label: "Faucet",
-    desc: "Easily request free testnet tokens to kickstart your development and testing instantly.",
-    icon: IconTaxPound,
-    btnText: "Claim TAN",
-  },
-  {
-    label: "Token Creator",
-    desc: "Deploy custom tokens easily—mint, burn, reflect, and more with no coding required.",
-    icon: IconComponents,
-    btnText: "Create Token",
-  },
-  {
-    label: "Multisender",
-    desc: "Distribute tokens instantly to many addresses—save time and gas with Multisender.",
-    icon: IconTaxPound,
-    btnText: "Send Token",
-  },
-  {
-    label: "Bridge",
-    desc: "Transfer tokens across blockchains—enable cross-chain interoperability in a few clicks.",
-    icon: IconTaxPound,
-    btnText: "Transact",
-  },
-  {
-    label: "Validator Pool",
-    desc: "Stake Tokens in the Validator Pool to Support Decentralization and Consensus.",
-    icon: IconTaxPound,
-    btnText: "Stake",
-  },
-  {
-    label: "Burn Subsidy",
-    desc: "Burn Tokens Strategically While Managing Vesting Through the Burn Subsidy Mechanism.",
-    icon: IconTaxPound,
-    btnText: "Burn",
-  },
-  {
-    label: "Ecosystem Subsidy",
-    desc: "Earn rewards, stake with purpose, and grow with TAN every transaction drives your success in our ecosystem!",
-    icon: IconTaxPound,
-    btnText: "Earn More Rewards",
-  },
-  {
-    label: "Swap",
-    desc: "Use the Built-In Swap Tool for Fast, Secure, and Gas-Efficient Token Conversions Across Supported Pairs.",
-    icon: IconTaxPound,
-    btnText: "Swap",
-  },
-];
+const useDappData = (search) => {
+  return useMemo(() => {
+    return [
+      {
+        label: "Faucet",
+        desc: "Easily request free testnet tokens to kickstart your development and testing instantly.",
+        icon: IconTaxPound,
+        btnText: "Claim TAN",
+      },
+      {
+        label: "Token Creator",
+        desc: "Deploy custom tokens easily—mint, burn, reflect, and more with no coding required.",
+        icon: IconComponents,
+        btnText: "Create Token",
+      },
+      {
+        label: "Multisender",
+        desc: "Distribute tokens instantly to many addresses—save time and gas with Multisender.",
+        icon: IconTaxPound,
+        btnText: "Send Token",
+      },
+      {
+        label: "Bridge",
+        desc: "Transfer tokens across blockchains—enable cross-chain interoperability in a few clicks.",
+        icon: IconTaxPound,
+        btnText: "Transact",
+      },
+      {
+        label: "Validator Pool",
+        desc: "Stake Tokens in the Validator Pool to Support Decentralization and Consensus.",
+        icon: IconTaxPound,
+        btnText: "Stake",
+      },
+      {
+        label: "Burn Subsidy",
+        desc: "Burn Tokens Strategically While Managing Vesting Through the Burn Subsidy Mechanism.",
+        icon: IconTaxPound,
+        btnText: "Burn",
+      },
+      {
+        label: "Ecosystem Subsidy",
+        desc: "Earn rewards, stake with purpose, and grow with TAN every transaction drives your success in our ecosystem!",
+        icon: IconTaxPound,
+        btnText: "Earn More Rewards",
+      },
+      {
+        label: "Swap",
+        desc: "Use the Built-In Swap Tool for Fast, Secure, and Gas-Efficient Token Conversions Across Supported Pairs.",
+        icon: IconTaxPound,
+        btnText: "Swap",
+      },
+    ].filter((item) => {
+      if (search) {
+        if (item.label.toLowerCase()?.includes(String(search)?.toLowerCase())) {
+          return true;
+        }
+        return false;
+      } else {
+        return true;
+      }
+    });
+  }, [search]);
+};
