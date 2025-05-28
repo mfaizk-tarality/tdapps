@@ -1,6 +1,6 @@
 import axios from "axios";
 // export const url = "https://api-vesting.tarality.io/api/v1"; //stage
-// export const tokenCreator = "https://api-tokencreator.tarality.io/api/v1"; //stage
+export const tokenCreator = "http://172.16.16.206:5058/api/v1"; //stage
 // export const bridge = "https://api-bridge.tarality.io/api/v1/user"; //stage
 // export const burningUrl = "https://api-burn.tarality.io/api/v1"; //stage
 // export const ecoSystem = "https://api-ecosystem.tarality.io/api/v1"; //stage
@@ -8,7 +8,7 @@ import axios from "axios";
 //////live
 
 export const url = "https://api-vesting.tan.live/api/v1"; //stage
-export const tokenCreator = "https://api-tokencreator.tan.live/api/v1"; //stage
+// export const tokenCreator = "https://api-tokencreator.tan.live/api/v1"; //stage
 export const bridge = "https://api-bridge.tan.live/api/v1/user"; //stage
 export const burningUrl = "https://api-burn.tan.live/api/v1"; //stage
 export const ecoSystem = "https://api-ecosystem.tan.live/api/v1"; //stage

@@ -11,18 +11,18 @@ import {
 } from "wagmi";
 
 export const TANConfig = {
-  rpc: "https://tan-devnetrpc1.tan.live/",
-  explorerName: "TAN Ledger",
+  rpc: "https://tan-testnetrpc2.tan.live/",
+  explorerName: "TAN Scan",
   explorerUrl: "https://testnet.tanscan.com",
   iconUrl: "/assets/logo/onlyLogo.svg",
-  chainId: 4442,
-  chainName: "TAN Devnet",
+  chainId: 4443,
+  chainName: "TAN Testnet",
   nativeCurrency: {
     decimals: 18,
     name: "Tarality Advance network",
     symbol: "TAN",
   },
-  multicall3Address: "0xb821099Fb8d4DbD0e7e7Ff64A7DE3BE99503a2af", //latest
+  multicall3Address: "0x6E675135df5715D8aBaFB0A904429fb1fd009444",
 };
 
 export const appConfigurations = [
@@ -47,7 +47,7 @@ export const appConfigurationsMainNet = [
     rpc: "https://tan-testnetrpc2.tan.live/",
     explorerName: "TAN Scan",
     explorerUrl: "https://testnet.tanscan.com",
-    iconUrl: "assets/brand/onlyLogo.svg",
+    iconUrl: "/assets/logo/onlyLogo.svg",
     chainId: 4443,
     chainName: "TAN Testnet",
     nativeCurrency: {
@@ -73,7 +73,7 @@ export const appConfigurationsMainNet = [
   },
 ];
 
-export const ChainConfig = appConfigurations.map((config) => ({
+export const ChainConfig = appConfigurationsMainNet.map((config) => ({
   id: config.chainId,
   name: config.chainName,
   network: config.chainName,
