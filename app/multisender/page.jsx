@@ -11,12 +11,7 @@ import { toast } from "sonner";
 import multisenderAbi from "@/abi/Multisender.json";
 import { waitForTransactionReceipt, writeContract } from "@wagmi/core";
 import { MULTI_SENDER_ADDRESS } from "@/modules/multisender/config";
-import {
-  IconPrism,
-  IconSquareRoundedXFilled,
-  IconUpload,
-  IconX,
-} from "@tabler/icons-react";
+import { IconPrism, IconUpload, IconX } from "@tabler/icons-react";
 import CustomButton from "@/common_component/CustomButton";
 import { isAddress, parseUnits } from "ethers";
 import { erc20Abi } from "viem";
@@ -26,8 +21,8 @@ const breadCrumb = [
     href: "/home",
   },
   {
-    text: "Faucet",
-    href: "/faucet",
+    text: "Multisender",
+    href: "/multisender",
   },
 ];
 
