@@ -20,6 +20,10 @@ const navItems = [
     href: "/token-creator",
   },
   {
+    label: "My Tokens",
+    href: "/token-creator/my-tokens",
+  },
+  {
     label: "MultiSender",
     href: "/multi-sender",
   },

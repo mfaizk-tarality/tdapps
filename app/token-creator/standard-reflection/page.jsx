@@ -30,9 +30,19 @@ const breadCrumb = [
 ];
 let StandardReflectionTokenSchema = yup.object({
   tokenName: yup.string().required("Token Name is required."),
-  tokenSymbol: yup.string().required("Token Symbol is required."),
-  totalSupply: yup.string().required("Total supply is required."),
-  fees: yup.string().required("Tax fees is required."),
+  tokenSymbol: yup
+    .string()
+    .required("Token Symbol is required.")
+    .matches(/^\S*$/, "Token Symbol cannot contain any spaces")
+    .matches(/^[A-Z]*$/, "Token Symbol must contain only uppercase letters"),
+  totalSupply: yup
+    .string()
+    .required("Total supply is required.")
+    .matches(/^[0-9]*$/, "Total supply must contain only digits"),
+  fees: yup
+    .string()
+    .required("Tax fees is required.")
+    .matches(/^[0-9]*$/, "Tax fees must contain only digits"),
   termsCondition: yup
     .boolean()
     .oneOf([true], "Terms and conditions should be accepted"),

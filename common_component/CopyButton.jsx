@@ -5,7 +5,7 @@ import { toast } from "sonner";
 const CopyButton = ({ text }) => {
   const [copied, setCopied] = useState(false);
 
-  const copiedHandler = async (text) => {
+  const copiedHandler = async () => {
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);

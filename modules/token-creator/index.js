@@ -41,6 +41,13 @@ export const useCreatedToken = (address) => {
     queryFn: async () => {
       return getTokens(address);
     },
+    select: (data) => {
+      if (data?.responseCode == 200) {
+        return data?.result;
+      }
+      return [];
+    },
+    enabled: !!address,
   });
 };
 
