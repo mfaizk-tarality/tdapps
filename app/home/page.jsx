@@ -1,7 +1,17 @@
 "use client";
 import CustomButton from "@/common_component/CustomButton";
 import CustomDivider from "@/common_component/CustomDivider";
-import { IconComponents, IconSearch, IconTaxPound } from "@tabler/icons-react";
+import {
+  IconArrowBadgeDownFilled,
+  IconBrandSlack,
+  IconComponents,
+  IconFlame,
+  IconHomeEco,
+  IconMessageCheck,
+  IconSearch,
+  IconTaxPound,
+  IconZoomReplace,
+} from "@tabler/icons-react";
 import Link from "next/link";
 import React, { useMemo, useState } from "react";
 
@@ -92,38 +102,38 @@ const useDappData = (search) => {
       {
         label: "Multisender",
         desc: "Distribute tokens instantly to many addresses—save time and gas with Multisender.",
-        icon: IconTaxPound,
+        icon: IconBrandSlack,
         btnText: "Send Token",
         href: "/multisender",
       },
       {
         label: "Bridge",
         desc: "Transfer tokens across blockchains—enable cross-chain interoperability in a few clicks.",
-        icon: IconTaxPound,
+        icon: IconArrowBadgeDownFilled,
         btnText: "Transact",
       },
       {
         label: "Validator Pool",
         desc: "Stake Tokens in the Validator Pool to Support Decentralization and Consensus.",
-        icon: IconTaxPound,
+        icon: IconMessageCheck,
         btnText: "Stake",
       },
       {
         label: "Burn Subsidy",
         desc: "Burn Tokens Strategically While Managing Vesting Through the Burn Subsidy Mechanism.",
-        icon: IconTaxPound,
+        icon: IconFlame,
         btnText: "Burn",
       },
       {
         label: "Ecosystem Subsidy",
         desc: "Earn rewards, stake with purpose, and grow with TAN every transaction drives your success in our ecosystem!",
-        icon: IconTaxPound,
+        icon: IconHomeEco,
         btnText: "Earn More Rewards",
       },
       {
         label: "Swap",
         desc: "Use the Built-In Swap Tool for Fast, Secure, and Gas-Efficient Token Conversions Across Supported Pairs.",
-        icon: IconTaxPound,
+        icon: IconZoomReplace,
         btnText: "Swap",
       },
     ].filter((item) => {
