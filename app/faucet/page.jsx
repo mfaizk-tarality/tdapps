@@ -110,8 +110,9 @@ const Faucet = () => {
                   defaultValue={"0xE83B6e2294dfb00c3cD17B74D0836c433A329AE9"}
                 />
                 <div className="absolute top-3 right-3 bg-background">
-                  {/* <IconCopy className="" /> */}
-                  <CopyButton text={"HULAA"} />
+                  <CopyButton
+                    text={"0xE83B6e2294dfb00c3cD17B74D0836c433A329AE9"}
+                  />
                 </div>
               </label>
             </div>
@@ -120,11 +121,15 @@ const Faucet = () => {
             <CustomButton
               className="rounded-md w-52"
               clickHandler={() => {
+                console.log("clicked");
+
                 switchChainAsync(
                   { chainId: TANConfig.chainId },
 
                   {
                     onError: (err) => {
+                      console.log(err);
+
                       toast.error(err.message);
                     },
                   }
@@ -134,7 +139,12 @@ const Faucet = () => {
               <img src="/assets/misc/metamask.svg" alt="" />
               <p>Add TAN Network</p>
             </CustomButton>
-            <CustomButton className="rounded-md w-52">
+            <CustomButton
+              className="rounded-md w-52"
+              clickHandler={() => {
+                window.open("https://testnet.tanscan.com/", "_blank");
+              }}
+            >
               <IconWorld />
               <p>View Explorer</p>
             </CustomButton>
