@@ -8,7 +8,6 @@ import Header from "@/common_component/Header";
 import { QueryProvider } from "@/modules/globals/QueryProvider";
 import BlockChainWrapper from "@/modules/globals/BlockChainWrapper";
 import { Toaster } from "sonner";
-import { Suspense } from "react";
 
 const interSans = Inter({
   variable: "--font-inter-sans",

@@ -135,7 +135,13 @@ const Header = () => {
             {navItems.map((item) => renderNavItem(item, true))}
           </ul>
         </div>
-        <img src="/assets/brand/logo.svg" alt="" className="h-6 md:h-8" />
+        <Link href={"/"}>
+          <img
+            src="/assets/brand/logo.svg"
+            alt=""
+            className="h-6 md:h-8 cursor-pointer"
+          />
+        </Link>
         {/* <Link className="btn btn-ghost text-xl"></Link> */}
       </div>
 
