@@ -7,6 +7,7 @@ import {
   useReadContract,
   useWriteContract,
 } from "wagmi";
+import Papa from "papaparse";
 import { toast } from "sonner";
 import multisenderAbi from "@/abi/Multisender.json";
 import { waitForTransactionReceipt, writeContract } from "@wagmi/core";
@@ -56,34 +57,38 @@ const MultiSender = () => {
   };
 
   const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
+    try {
+      const file = event.target.files[0];
+      if (!file) return;
+      Papa.parse(file, {
+        complete: (result) => {
+          const parsedAddresses = result.data
+            .map((row) => {
+              const [address, amount] = row.map((item) => item.trim());
 
-    Papa.parse(file, {
-      complete: (result) => {
-        const parsedAddresses = result.data
-          .map((row) => {
-            const [address, amount] = row.map((item) => item.trim());
+              if (!address || !amount) return null;
 
-            if (!address || !amount) return null;
+              const parsedAmount = parseFloat(amount);
+              if (isNaN(parsedAmount) || parsedAmount <= 0) {
+                return null;
+              }
 
-            const parsedAmount = parseFloat(amount);
-            if (isNaN(parsedAmount) || parsedAmount <= 0) {
-              return null;
-            }
+              return `${address}, ${parsedAmount}`;
+            })
+            .filter(Boolean);
 
-            return `${address}, ${parsedAmount}`;
-          })
-          .filter(Boolean);
-
-        setFormValues((prev) => ({
-          ...prev,
-          addressList: parsedAddresses.join("\n"),
-        }));
-      },
-      header: false,
-      skipEmptyLines: true,
-    });
+          setFormValues((prev) => ({
+            ...prev,
+            addressList: parsedAddresses.join("\n"),
+          }));
+        },
+        header: false,
+        skipEmptyLines: true,
+      });
+      csvBtnRef.current.value = "";
+    } catch (error) {
+      console.log(error, "upload Error");
+    }
   };
 
   const handleSubmitNative = async () => {
