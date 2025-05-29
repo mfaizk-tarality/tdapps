@@ -2,6 +2,7 @@
 import CustomButton from "@/common_component/CustomButton";
 import CustomDivider from "@/common_component/CustomDivider";
 import { IconComponents, IconSearch, IconTaxPound } from "@tabler/icons-react";
+import Link from "next/link";
 import React, { useMemo, useState } from "react";
 
 const Home = () => {
@@ -56,9 +57,11 @@ const Home = () => {
               <item.icon size={40} />
               <h4>{item?.label}</h4>
               <p>{item?.desc}</p>
-              <CustomButton className={"rounded-sm min-w-40"}>
-                {item?.btnText}
-              </CustomButton>
+              <Link href={item.href || "#"}>
+                <CustomButton className={"rounded-sm min-w-40"}>
+                  {item?.btnText}
+                </CustomButton>
+              </Link>
             </div>
           );
         })}
@@ -77,18 +80,21 @@ const useDappData = (search) => {
         desc: "Easily request free testnet tokens to kickstart your development and testing instantly.",
         icon: IconTaxPound,
         btnText: "Claim TAN",
+        href: "/faucet",
       },
       {
         label: "Token Creator",
         desc: "Deploy custom tokens easily—mint, burn, reflect, and more with no coding required.",
         icon: IconComponents,
         btnText: "Create Token",
+        href: "/token-creator",
       },
       {
         label: "Multisender",
         desc: "Distribute tokens instantly to many addresses—save time and gas with Multisender.",
         icon: IconTaxPound,
         btnText: "Send Token",
+        href: "/multisender",
       },
       {
         label: "Bridge",
