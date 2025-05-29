@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { deployContract, waitForTransactionReceipt } from "@wagmi/core";
 import tSourceCode from "@/abi/tSourceCode.json";
 import { useState } from "react";
+import TermAndCondition from "@/modules/token-creator/terms-condition";
 
 const breadCrumb = [
   {
@@ -56,6 +57,7 @@ let StandardTokenSchema = yup.object({
 const StandardToken = () => {
   const { address, isConnected } = useAccount();
   const [isLoading, setIsLoading] = useState(false);
+  const [termsAndCondition, setTermsAndCondition] = useState(false);
   const config = useConfig();
 
   const { mutateAsync: createTokenMutate, isPending: createTokenPending } =
@@ -187,7 +189,12 @@ const StandardToken = () => {
                   }}
                 />
                 By checking this I agree with{" "}
-                <span className="text-white">Terms & Conditions</span>
+                <span
+                  className="text-white cursor-pointer"
+                  onClick={() => setTermsAndCondition(true)}
+                >
+                  Terms & Conditions
+                </span>
               </label>
               <p className="text-error">{formik.errors?.termsCondition}</p>
             </div>
@@ -204,6 +211,10 @@ const StandardToken = () => {
           </form>
         </div>
       </div>
+      <TermAndCondition
+        open={termsAndCondition}
+        setOpen={setTermsAndCondition}
+      />
     </div>
   );
 };

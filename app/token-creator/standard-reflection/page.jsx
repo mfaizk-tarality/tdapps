@@ -13,6 +13,7 @@ import tSourceCode from "@/abi/tSourceCode.json";
 import { useState } from "react";
 import StandardReflectionTokenABI from "@/abi/StandardReflectionTokenABI.json";
 import { standardReflectionTokenByteCode } from "@/abi/bytecode";
+import TermAndCondition from "@/modules/token-creator/terms-condition";
 
 const breadCrumb = [
   {
@@ -52,6 +53,7 @@ const StandardReflectionToken = () => {
   const { address, isConnected } = useAccount();
   const [isLoading, setIsLoading] = useState(false);
   const config = useConfig();
+  const [termsAndCondition, setTermsAndCondition] = useState(false);
 
   const { mutateAsync: createTokenMutate, isPending: createTokenPending } =
     useMutation({
@@ -190,7 +192,12 @@ const StandardReflectionToken = () => {
                 />
                 <p className="text-description">
                   By checking this I agree with{" "}
-                  <span className="text-white">Terms & Conditions</span>
+                  <span
+                    className="text-white cursor-pointer"
+                    onClick={() => setTermsAndCondition(true)}
+                  >
+                    Terms & Conditions
+                  </span>
                 </p>
               </div>
               <p className="text-error mt-2">{formik.errors?.termsCondition}</p>
@@ -208,6 +215,10 @@ const StandardReflectionToken = () => {
           </form>
         </div>
       </div>
+      <TermAndCondition
+        open={termsAndCondition}
+        setOpen={setTermsAndCondition}
+      />
     </div>
   );
 };
