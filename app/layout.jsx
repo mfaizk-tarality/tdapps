@@ -18,6 +18,10 @@ const interSans = Inter({
 export const metadata = {
   title: "TAN Dapps",
   description: "Next gen ultra pro max extreme dapps by TAN",
+
+  icons: {
+    icon: "/assets/brand/onlyLogo.svg",
+  },
 };
 
 export default function RootLayout({ children }) {
