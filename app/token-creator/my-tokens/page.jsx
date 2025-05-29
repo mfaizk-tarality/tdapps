@@ -10,6 +10,7 @@ import moment from "moment";
 import { IconCheck, IconSearch, IconX } from "@tabler/icons-react";
 import LoadingScreen from "@/common_component/LoadingScreen";
 import { useState } from "react";
+import NoDataFound from "@/common_component/NoDataFound";
 const breadCrumb = [
   {
     text: "Home",
@@ -104,77 +105,84 @@ const MyTokens = () => {
                 text={"Getting Token Data..."}
               />
             )}
-            {!tokenDataLoading && (
-              <table className="table table-md table-pin-rows table-pin-cols flex-1 min-w-[1200px]">
-                <thead>
-                  <tr className="bg-stroke">
-                    <td>Token Address</td>
-                    <td>Name</td>
-                    <td>Symbol</td>
-                    <td>Supply</td>
-                    <td>Created At</td>
-                    <td>Mint</td>
-                    <td>Burn</td>
-                    <td>Type</td>
-                    <td></td>
-                  </tr>
-                </thead>
-                <tbody>
-                  {tokenData?.filter(filterToken)?.map((item, idx) => {
-                    return (
-                      <tr key={idx}>
-                        <td>
-                          {maskValue({
-                            str: item?.user_token_Address,
-                            enableCopyButton: true,
-                          })}
-                        </td>
-                        <td>{item?.token_name || "--"}</td>
-                        <td>{item?.token_symbol || "--"}</td>
-                        <td>{formatNice(item?.total_supply ?? 0)}</td>
-                        <td>
-                          {item?.createdAt
-                            ? moment(item?.createdAt)?.format("ll")
-                            : "--"}
-                        </td>
-                        <td>
-                          {item?.can_mint ? (
-                            <IconCheck className="text-description" />
-                          ) : (
-                            <IconX className="text-description" />
-                          )}
-                        </td>
-                        <td>
-                          {item?.can_burn ? (
-                            <IconCheck className="text-description" />
-                          ) : (
-                            <IconX className="text-description" />
-                          )}
-                        </td>
-                        <td>{getTokenNametoShow(item?.token_type)}</td>
-                        <td>
-                          <CustomButton
-                            clickHandler={() => {
-                              addToken({
-                                tokenAddress: item.user_token_Address,
-                                tokenDecimals: item.decimals
-                                  ? item.decimals
-                                  : 18,
-                                tokenImage: null,
-                                tokenSymbol: item?.token_symbol,
-                              });
-                            }}
-                          >
-                            <img src="/assets/misc/metamask.svg" alt="" />
-                            <p className="text-xs">Add to wallet</p>
-                          </CustomButton>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            )}
+            {!tokenDataLoading &&
+              tokenData?.filter(filterToken)?.length == 0 && (
+                <div className="min-h-56">
+                  <NoDataFound text={"No Token Found."} />
+                </div>
+              )}
+            {!tokenDataLoading &&
+              tokenData?.filter(filterToken)?.length != 0 && (
+                <table className="table table-md table-pin-rows table-pin-cols flex-1 min-w-[1200px]">
+                  <thead>
+                    <tr className="bg-stroke">
+                      <td>Token Address</td>
+                      <td>Name</td>
+                      <td>Symbol</td>
+                      <td>Supply</td>
+                      <td>Created At</td>
+                      <td>Mint</td>
+                      <td>Burn</td>
+                      <td>Type</td>
+                      <td></td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tokenData?.filter(filterToken)?.map((item, idx) => {
+                      return (
+                        <tr key={idx}>
+                          <td>
+                            {maskValue({
+                              str: item?.user_token_Address,
+                              enableCopyButton: true,
+                            })}
+                          </td>
+                          <td>{item?.token_name || "--"}</td>
+                          <td>{item?.token_symbol || "--"}</td>
+                          <td>{formatNice(item?.total_supply ?? 0)}</td>
+                          <td>
+                            {item?.createdAt
+                              ? moment(item?.createdAt)?.format("ll")
+                              : "--"}
+                          </td>
+                          <td>
+                            {item?.can_mint ? (
+                              <IconCheck className="text-description" />
+                            ) : (
+                              <IconX className="text-description" />
+                            )}
+                          </td>
+                          <td>
+                            {item?.can_burn ? (
+                              <IconCheck className="text-description" />
+                            ) : (
+                              <IconX className="text-description" />
+                            )}
+                          </td>
+                          <td>{getTokenNametoShow(item?.token_type)}</td>
+                          <td>
+                            <CustomButton
+                              clickHandler={() => {
+                                addToken({
+                                  tokenAddress: item.user_token_Address,
+                                  tokenDecimals: item.decimals
+                                    ? item.decimals
+                                    : 18,
+                                  tokenImage: null,
+                                  tokenSymbol: item?.token_symbol,
+                                });
+                              }}
+                            >
+                              <img src="/assets/misc/metamask.svg" alt="" />
+                              <p className="text-xs">Add to wallet</p>
+                            </CustomButton>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              )}
           </div>
         </div>
       </div>

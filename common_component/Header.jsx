@@ -2,13 +2,14 @@
 import { useAppKit } from "@reown/appkit/react";
 import { IconBrandSlack } from "@tabler/icons-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useMemo } from "react";
 import { useAccount } from "wagmi";
 
 const navItems = [
   {
     label: "Home",
-    href: "/",
+    href: "/home",
   },
 
   {
@@ -49,7 +50,7 @@ const navItems = [
 
 const Header = () => {
   const { open, close } = useAppKit();
-
+  const pathname = usePathname();
   const { isConnected } = useAccount();
 
   const connectButton = useMemo(() => {
@@ -79,7 +80,7 @@ const Header = () => {
             // This will still be click-to-open for mobile, which is often preferred.
             <>
               <Link>{item.label}</Link>
-              <ul className="p-2">
+              <ul className={`${pathname == item.href ? "font-bold" : ""} p-2`}>
                 {item.children.map((child) => renderNavItem(child, true))}
               </ul>
             </>
@@ -89,7 +90,7 @@ const Header = () => {
             <details className="dropdown dropdown-hover">
               {/* Add dropdown-hover here */}
               <summary>{item.label}</summary>
-              <ul className="p-2 dropdown-content z-[1] bg-background rounded-box w-52 ">
+              <ul className="p-2 dropdown-content z-[1] bg-background rounded-box w-52">
                 {/* Ensure dropdown-content has necessary classes */}
                 {item.children.map((child) => renderNavItem(child))}
               </ul>
@@ -100,7 +101,10 @@ const Header = () => {
     } else {
       // It's a regular link
       return (
-        <li key={item.label}>
+        <li
+          key={item.label}
+          className={`${pathname == item.href ? "font-bold" : ""} `}
+        >
           <Link href={item.href}>{item.label}</Link>
         </li>
       );
