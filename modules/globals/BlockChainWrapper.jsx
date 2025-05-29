@@ -132,6 +132,10 @@ export const modal = createAppKit({
     analytics: true,
     email: false,
     socials: [],
+    swaps: false,
+    pay: false,
+    send: false,
+    walletFeaturesOrder: ["receive" | "onramp" | "swaps" | "send"],
   },
   themeVariables: {
     "--w3m-accent": "#000000",
