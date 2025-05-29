@@ -5,6 +5,6 @@ export const OWNER_PRIVATE_KEY =
 export const OWNER_ACCOUNT_ADDRESS =
   "0xE83B6e2294dfb00c3cD17B74D0836c433A329AE9";
 
-export const amountToSend = 10;
+export const amountToSend = "10";
 
 //////////////////////////////////////////Testnet end///////////////////////////////////////////
