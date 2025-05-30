@@ -16,6 +16,7 @@ import { IconPrism, IconUpload, IconX } from "@tabler/icons-react";
 import CustomButton from "@/common_component/CustomButton";
 import { isAddress, parseUnits } from "ethers";
 import { erc20Abi } from "viem";
+import PageTitle from "@/common_component/PageTitle";
 const breadCrumb = [
   {
     text: "Home",
@@ -231,11 +232,15 @@ const MultiSender = () => {
         </div>
         <div className="grid grid-cols-12 my-10">
           <div className="col-span-12 sm:col-span-12 lg:col-span-6 lg:col-start-4 xl:col-span-6 xl:col-start-4">
-            <h2 className="text-2xl font-semibold">Multisender</h2>
-            <p className="text-description">
-              Distribute Tokens Instantly to Dozens or Hundreds of
-              Addresses—Save Time and Gas with the Multisender Tool.
-            </p>
+            <div className="col-span-12 mt-10">
+              <PageTitle
+                title={"Multisender"}
+                subtitle={
+                  " Distribute Tokens Instantly to Dozens or Hundreds of Addresses—Save Time and Gas with the Multisender Tool."
+                }
+              />
+            </div>
+
             <div className="w-full border-2 border-stroke grid grid-cols-12 mt-4 rounded-2xl">
               <div className="col-span-12 md:col-start-2 md:col-span-10 p-4 flex flex-col gap-6 py-12">
                 <div>
@@ -363,8 +368,8 @@ const MultiSender = () => {
           </div>
         </div>
       </div>
-      <dialog id="my_modal_1" className="modal ">
-        <div className="modal-box relative bg-background">
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box relative bg-background  md:min-w-xl">
           <p className="font-semibold">Show Sample CSV</p>
           <div className="py-2 flex ">
             <div className="modal-action absolute -top-6 right-0 p-6">

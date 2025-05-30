@@ -3,7 +3,7 @@ import React from "react";
 
 const BreadCrumb = ({ routes = [] }) => {
   return (
-    <div className="breadcrumbs text-sm">
+    <div className="breadcrumbs text-sm my-4">
       <ul>
         {routes?.map((item, idx) => {
           return (

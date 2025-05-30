@@ -40,11 +40,11 @@ let MintBurnScehem = yup.object({
     .matches(/^[A-Z]*$/, "Token Symbol must contain only uppercase letters"),
   totalSupply: yup
     .string()
-    .required("Total supply is required.")
+    .required("Total Supply is required.")
     .matches(/^[0-9]*$/, "Total supply must contain only digits"),
   decimals: yup
     .string()
-    .required("decimals is required.")
+    .required("Decimals is required.")
     .matches(/^[0-9]*$/, "decimals must contain only digits"),
   supplyType: yup.string().required("SupplyType is required."),
   accessType: yup.string().required("AccessType is required."),

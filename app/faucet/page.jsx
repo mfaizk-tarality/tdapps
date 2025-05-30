@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { useAppKit } from "@reown/appkit/react";
 import CopyButton from "@/common_component/CopyButton";
 import { TANConfig } from "@/modules/globals/BlockChainWrapper";
+import PageTitle from "@/common_component/PageTitle";
 const breadCrumb = [
   {
     text: "Home",
@@ -60,12 +61,13 @@ const Faucet = () => {
       </div>
       <div className="grid grid-cols-12">
         <div className="col-span-12 sm:col-span-12 lg:col-span-6 lg:col-start-4 xl:col-span-4 xl:col-start-5">
-          <h2 className="text-2xl font-semibold">Faucet</h2>
-          <p className="text-description">
-            Easily Request Free Testnet Tokens Using the Faucet—Jumpstart Your
-            Development and Testing with Instant Token Access in Just a Few
-            Clicks.
-          </p>
+          <PageTitle
+            title={"Faucet"}
+            subtitle={
+              "Easily Request Free Testnet Tokens Using the Faucet—Jumpstart Your Development and Testing with Instant Token Access in Just a Few Clicks."
+            }
+          />
+
           <div className="w-full border-2 border-stroke grid grid-cols-12 mt-4 rounded-2xl">
             <div className="col-span-12 md:col-start-2 md:col-span-10 p-4 flex flex-col gap-6 py-12">
               <div className="flex items-center justify-between">
@@ -88,6 +90,7 @@ const Faucet = () => {
                 }
               />
               <CustomButton
+                className={"rounded-sm"}
                 clickHandler={() => {
                   if (!isConnected) {
                     open({ view: "Connect" });

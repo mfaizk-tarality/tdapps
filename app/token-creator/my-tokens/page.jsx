@@ -105,13 +105,15 @@ const MyTokens = () => {
                 text={"Getting Token Data..."}
               />
             )}
+            {((!tokenDataLoading &&
+              tokenData?.filter(filterToken)?.length == 0) ||
+              !isConnected) && (
+              <div className="min-h-56">
+                <NoDataFound text={"No Token Found."} />
+              </div>
+            )}
             {!tokenDataLoading &&
-              tokenData?.filter(filterToken)?.length == 0 && (
-                <div className="min-h-56">
-                  <NoDataFound text={"No Token Found."} />
-                </div>
-              )}
-            {!tokenDataLoading &&
+              isConnected &&
               tokenData?.filter(filterToken)?.length != 0 && (
                 <table className="table table-md table-pin-rows table-pin-cols flex-1 min-w-[1200px]">
                   <thead>

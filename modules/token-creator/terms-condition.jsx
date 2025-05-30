@@ -27,7 +27,7 @@ const TermAndCondition = ({ open, setOpen }) => {
             </button>
           </div>
         </div>
-        <form method="dialog " className="overflow-x-auto max-h-56">
+        <form method="dialog " className="overflow-x-auto max-h-96">
           <Fragment>
             <p>
               TAN DApps(the "Platform"), is a service provided on SmartContracts

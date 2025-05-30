@@ -72,12 +72,9 @@ const Header = () => {
 
   const renderNavItem = (item, isMobileDropdown = false) => {
     if (item.children) {
-      // It's a parent with children (dropdown)
       return (
         <li key={item.label}>
           {isMobileDropdown ? (
-            // Mobile dropdowns: DaisyUI's mobile dropdown doesn't have a direct "hover" class
-            // This will still be click-to-open for mobile, which is often preferred.
             <>
               <Link>{item.label}</Link>
               <ul className={`${pathname == item.href ? "font-bold" : ""} p-2`}>
@@ -85,13 +82,9 @@ const Header = () => {
               </ul>
             </>
           ) : (
-            // Desktop dropdowns: Use <details> with `dropdown` and `dropdown-hover` classes
-            // For nested desktop submenus, DaisyUI's <details> + `dropdown-hover` also works
             <details className="dropdown dropdown-hover">
-              {/* Add dropdown-hover here */}
               <summary>{item.label}</summary>
               <ul className="p-2 dropdown-content z-[1] bg-background rounded-box w-52">
-                {/* Ensure dropdown-content has necessary classes */}
                 {item.children.map((child) => renderNavItem(child))}
               </ul>
             </details>
@@ -99,7 +92,6 @@ const Header = () => {
         </li>
       );
     } else {
-      // It's a regular link
       return (
         <li
           key={item.label}
@@ -114,7 +106,6 @@ const Header = () => {
   return (
     <div className="navbar bg-background">
       <div className="navbar-start">
-        {/* Mobile Dropdown (typically click-to-open for better UX) */}
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
@@ -146,10 +137,8 @@ const Header = () => {
             className="h-6 md:h-8 cursor-pointer"
           />
         </Link>
-        {/* <Link className="btn btn-ghost text-xl"></Link> */}
       </div>
 
-      {/* Desktop Navigation */}
       <div className="navbar-end hidden lg:flex min-w-fit 2xl:gap-10">
         <ul className="menu menu-horizontal px-1 2xl:gap-10">
           {navItems.map((item) => renderNavItem(item))}
