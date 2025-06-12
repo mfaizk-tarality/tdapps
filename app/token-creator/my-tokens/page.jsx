@@ -35,12 +35,12 @@ const MyTokens = () => {
   const getTokenNametoShow = (name) => {
     switch (name) {
       case "standardReflection":
-        return "Reflection";
+        return "Standard Reflection Token";
       case "standard":
-        return "Standard";
+        return "Standard Token";
 
       case "mintBurn":
-        return "Minting";
+        return "Minting & Burning Token";
     }
   };
 
@@ -81,7 +81,7 @@ const MyTokens = () => {
               <PageTitle
                 title={"My Tokens"}
                 subtitle={
-                  "Easily Deploy Your Own Standard Token on the Blockchain"
+                  "View and Manage Your Deployed Tokens on the Blockchain"
                 }
               />
             </div>
@@ -149,16 +149,16 @@ const MyTokens = () => {
                           </td>
                           <td>
                             {item?.can_mint ? (
-                              <IconCheck className="text-description" />
+                              <IconCheck className="text-white" />
                             ) : (
-                              <IconX className="text-description" />
+                              <IconX className="text-white" />
                             )}
                           </td>
                           <td>
                             {item?.can_burn ? (
-                              <IconCheck className="text-description" />
+                              <IconCheck className="text-white" />
                             ) : (
-                              <IconX className="text-description" />
+                              <IconX className="text-white" />
                             )}
                           </td>
                           <td>{getTokenNametoShow(item?.token_type)}</td>

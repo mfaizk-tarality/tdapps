@@ -127,7 +127,7 @@ const StandardToken = () => {
       tokenName: "",
       tokenSymbol: "",
       totalSupply: "",
-      decimals: "",
+      decimals: "18",
       termsCondition: false,
     },
     validationSchema: StandardTokenSchema,
@@ -171,7 +171,11 @@ const StandardToken = () => {
                     type="text"
                     className="border border-stroke p-2 rounded-sm"
                     placeholder={item.placeholder}
-                    onChange={formik.handleChange}
+                    onChange={(e) => {
+                      if (!item?.disable) {
+                        formik.handleChange(e);
+                      }
+                    }}
                     value={formik.values?.[item.field]}
                   />
                   <p className="text-error">{formik.errors?.[item.field]}</p>
@@ -226,20 +230,24 @@ const fields = [
     field: "tokenName",
     label: "Token Name*",
     placeholder: "e.g. Apha",
+    disable: false,
   },
   {
     field: "tokenSymbol",
     label: "Token Symbol*",
     placeholder: "e.g. APH",
+    disable: false,
   },
   {
     field: "totalSupply",
     label: "Token Supply*",
     placeholder: "e.g. 1000000",
+    disable: false,
   },
   {
     field: "decimals",
     label: "Decimals*",
     placeholder: "e.g. 18",
+    disable: true,
   },
 ];

@@ -25,7 +25,7 @@ const navItems = [
     href: "/token-creator/my-tokens",
   },
   {
-    label: "MultiSender",
+    label: "Multisender",
     href: "/multisender",
   },
   //   {
